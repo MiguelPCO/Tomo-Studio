@@ -1,13 +1,23 @@
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 
-interface ButtonProps {
-  children: React.ReactNode
-  variant?: 'primary' | 'secondary' | 'ghost'
-  href?: string
+type LinkButtonProps = {
+  href: string
+  onClick?: never
+  type?: never
+  disabled?: never
+}
+
+type ActionButtonProps = {
+  href?: never
   onClick?: () => void
   type?: 'button' | 'submit'
   disabled?: boolean
+}
+
+type ButtonProps = (LinkButtonProps | ActionButtonProps) & {
+  children: React.ReactNode
+  variant?: 'primary' | 'secondary' | 'ghost'
   className?: string
   'aria-label'?: string
 }
