@@ -11,8 +11,6 @@ import FocusedBook from './FocusedBook'
 
 type BookState = 'shelf' | 'extract' | 'focused' | 'opening'
 
-interface SpineRect { left: number; top: number; width: number; height: number }
-
 interface BookExtractionSequenceProps {
   projects: Project[]
 }
@@ -20,14 +18,12 @@ interface BookExtractionSequenceProps {
 export default function BookExtractionSequence({ projects }: BookExtractionSequenceProps) {
   const [state, setState] = useState<BookState>('shelf')
   const [activeProject, setActiveProject] = useState<Project | null>(null)
-  const [spineRect, setSpineRect] = useState<SpineRect | null>(null)
   const flyingRef = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
   const router = useRouter()
 
   const handleExtract = useCallback(async (project: Project, el: HTMLElement) => {
     const rect = el.getBoundingClientRect()
-    setSpineRect({ left: rect.left, top: rect.top, width: rect.width, height: rect.height })
     setActiveProject(project)
 
     if (reduced) {
@@ -77,7 +73,6 @@ export default function BookExtractionSequence({ projects }: BookExtractionSeque
 
   const handleClose = useCallback(() => {
     setActiveProject(null)
-    setSpineRect(null)
     setState('shelf')
   }, [])
 
