@@ -21,7 +21,7 @@ export default function TechnicalSheet({ data }: TechnicalSheetProps) {
   ].filter((r): r is { label: string; value: string } => Boolean(r.value))
 
   return (
-    <div className="border border-[#E5E3DF] rounded-sm overflow-hidden">
+    <dl className="border border-[#E5E3DF] rounded-sm overflow-hidden">
       {rows.map((row, i) => (
         <div key={row.label} className={`flex gap-6 px-5 py-3 ${i % 2 === 0 ? 'bg-[#F8F7F4]' : 'bg-[#E5E3DF]/30'}`}>
           <dt className="font-mono-arch text-[0.6rem] tracking-[0.12em] text-[#8A8880] uppercase w-28 flex-shrink-0">
@@ -30,6 +30,6 @@ export default function TechnicalSheet({ data }: TechnicalSheetProps) {
           <dd className="font-inter text-sm text-[#2C2C2C]">{row.value}</dd>
         </div>
       ))}
-    </div>
+    </dl>
   )
 }
