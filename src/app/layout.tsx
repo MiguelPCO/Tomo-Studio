@@ -4,6 +4,7 @@ import { ReducedMotionProvider } from '@/components/providers/ReducedMotionProvi
 import { LenisProvider } from '@/components/providers/LenisProvider'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import { studio } from '@/data/studio'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({
@@ -43,6 +44,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" className={`${cormorant.variable} ${inter.variable} ${ibmPlexMono.variable}`}>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'Tomo Studio',
+              url: 'https://tomostudio.es',
+              email: studio.email,
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'Calle del Pez 21, 2º izq.',
+                addressLocality: 'Madrid',
+                addressCountry: 'ES',
+              },
+              foundingDate: String(studio.founded),
+              description: studio.tagline,
+            }),
+          }}
+        />
         <ReducedMotionProvider>
           <LenisProvider>
             <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#C4673A] focus:text-[#F8F7F4]">
