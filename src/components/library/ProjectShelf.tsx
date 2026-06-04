@@ -19,7 +19,7 @@ export default function ProjectShelf({ projects, activeSlug, onExtract }: Projec
       className="relative w-full overflow-x-auto"
       style={{ perspective: '800px' }}
     >
-      <div className="flex items-end gap-1.5 px-8 min-w-max mx-auto" style={{ minHeight: '260px' }}>
+      <div className="flex items-end justify-center gap-3 px-8" style={{ minHeight: '260px' }}>
         {projects.map(project => (
           <BookSpine
             key={project.id}

@@ -41,10 +41,10 @@ export default function FocusedBook({ project, onOpen, onClose, isOpening }: Foc
           <motion.div
             className="relative flex-shrink-0"
             style={{ width: 200, height: 280 }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
           >
             <Image
               src={project.coverImage}

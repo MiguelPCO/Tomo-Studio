@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import type { Project } from '@/data/types'
 import { useReducedMotion } from '@/components/providers/ReducedMotionProvider'
 import { loadGsap } from '@/lib/gsap'
@@ -44,21 +45,38 @@ export default function BookExtractionSequence({ projects }: BookExtractionSeque
     const cx = window.innerWidth / 2
     const cy = window.innerHeight / 2
 
-    // Position flying book at spine location using transforms from center
+    const startX = rect.left + rect.width / 2 - cx
+    const startY = rect.top + rect.height / 2 - cy
+    const startScaleX = rect.width / COVER_W
+    const startScaleY = rect.height / COVER_H
+
+    // Position flying book at spine location
     gsap.set(flyingRef.current, {
-      x: rect.left + rect.width / 2 - cx,
-      y: rect.top + rect.height / 2 - cy,
-      scaleX: rect.width / COVER_W,
-      scaleY: rect.height / COVER_H,
+      x: startX,
+      y: startY,
+      scaleX: startScaleX,
+      scaleY: startScaleY,
+      rotateZ: 0,
       opacity: 1,
     })
 
-    // Animate to center
-    gsap.to(flyingRef.current, {
+    // 3-step extraction sequence
+    const tl = gsap.timeline({ onComplete: () => setState('focused') })
+
+    // Step 1 (0–200ms): lift from shelf with slight tilt
+    tl.to(flyingRef.current, {
+      y: startY - 60,
+      rotateZ: 3,
+      duration: 0.2,
+      ease: 'power2.out',
+    })
+
+    // Step 2 (200–700ms): fly to center, expand to cover size, straighten
+    tl.to(flyingRef.current, {
       x: 0, y: 0, scaleX: 1, scaleY: 1,
-      duration: 0.7,
+      rotateZ: 0,
+      duration: 0.5,
       ease: 'power3.out',
-      onComplete: () => setState('focused'),
     })
   }, [reduced])
 
@@ -103,7 +121,7 @@ export default function BookExtractionSequence({ projects }: BookExtractionSeque
       {state === 'extract' && activeProject && (
         <div
           ref={flyingRef}
-          className="fixed z-50 pointer-events-none"
+          className="fixed z-50 pointer-events-none overflow-hidden rounded-sm"
           style={{
             left: '50%',
             top: '50%',
@@ -112,10 +130,18 @@ export default function BookExtractionSequence({ projects }: BookExtractionSeque
             marginLeft: -100,
             marginTop: -140,
             backgroundColor: activeProject.spineColor,
-            borderRadius: 4,
+            boxShadow: '8px 8px 32px rgba(0,0,0,0.3)',
           }}
           aria-hidden="true"
-        />
+        >
+          <Image
+            src={activeProject.coverImage}
+            alt=""
+            fill
+            className="object-cover"
+            sizes="200px"
+          />
+        </div>
       )}
 
       {/* Focused + Opening states */}
