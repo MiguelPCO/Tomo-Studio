@@ -17,7 +17,7 @@ export default function ImageGallery({ images, projectTitle }: ImageGalleryProps
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {images.map((src, i) => (
           <motion.button
-            key={src}
+            key={`${src}-${i}`}
             className={`relative overflow-hidden rounded-sm bg-[#E5E3DF] cursor-zoom-in ${i === 0 ? 'md:col-span-2' : ''}`}
             style={{ aspectRatio: i === 0 ? '16/9' : '4/3' }}
             onClick={() => setLightbox(i)}
