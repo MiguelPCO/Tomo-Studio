@@ -4,13 +4,11 @@ import Image from 'next/image'
 import { motion } from 'motion/react'
 import type { Project } from '@/data/types'
 import Button from '@/components/ui/Button'
-import BookOpenTransition from './BookOpenTransition'
 
 interface FocusedBookProps {
   project: Project
   onOpen: (slug: string) => void
   onClose: () => void
-  isOpening: boolean
 }
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -27,10 +25,9 @@ const STATUS_LABELS: Record<string, string> = {
   concepto: 'Concepto',
 }
 
-export default function FocusedBook({ project, onOpen, onClose, isOpening }: FocusedBookProps) {
+export default function FocusedBook({ project, onOpen, onClose }: FocusedBookProps) {
   return (
-    <>
-      <div
+    <div
         className="fixed inset-0 z-50 flex items-center justify-center px-4"
         role="dialog"
         aria-modal="true"
@@ -96,15 +93,6 @@ export default function FocusedBook({ project, onOpen, onClose, isOpening }: Foc
             </div>
           </motion.div>
         </div>
-      </div>
-
-      {/* Opening animation */}
-      {isOpening && (
-        <BookOpenTransition
-          project={project}
-          onComplete={() => {/* router.push already called in parent */}}
-        />
-      )}
-    </>
+    </div>
   )
 }

@@ -57,7 +57,7 @@ export default function BookOpenTransition({ project, onComplete }: BookOpenTran
   }, [onComplete])
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center pointer-events-none">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none">
       {/* Cover element */}
       <div
         ref={coverRef}

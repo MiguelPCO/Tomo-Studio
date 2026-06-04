@@ -9,6 +9,7 @@ import { useReducedMotion } from '@/components/providers/ReducedMotionProvider'
 import { loadGsap } from '@/lib/gsap'
 import ProjectShelf from './ProjectShelf'
 import FocusedBook from './FocusedBook'
+import BookOpenTransition from './BookOpenTransition'
 
 type BookState = 'shelf' | 'extract' | 'focused' | 'opening'
 
@@ -144,17 +145,24 @@ export default function BookExtractionSequence({ projects }: BookExtractionSeque
         </div>
       )}
 
-      {/* Focused + Opening states */}
+      {/* Focused state */}
       <AnimatePresence>
         {(state === 'focused' || state === 'opening') && activeProject && (
           <FocusedBook
             project={activeProject}
             onOpen={handleOpenProject}
             onClose={handleClose}
-            isOpening={state === 'opening'}
           />
         )}
       </AnimatePresence>
+
+      {/* Book opening transition — rendered at top level so z-index is never trapped */}
+      {state === 'opening' && activeProject && (
+        <BookOpenTransition
+          project={activeProject}
+          onComplete={() => {}}
+        />
+      )}
     </div>
   )
 }
