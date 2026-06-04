@@ -69,7 +69,7 @@ Se fotografía siempre con luz natural y sin muebles de atrezzo. Lo que ves es e
     category: 'Reflexión',
     date: '2024-04-08',
     excerpt: 'El umbral es la pieza más olvidada de la arquitectura doméstica contemporánea. Y es la que más condiciona cómo vivimos.',
-    coverImage: UNSPLASH('1586023492125-27b2a87a1a02'),
+    coverImage: UNSPLASH('1504307651254-35680f356dfd'),
     content: `El umbral es la transición entre dos estados: el interior y el exterior, lo privado y lo público, el trabajo y el descanso. En la arquitectura doméstica contemporánea, el umbral ha desaparecido.
 
 Las viviendas modernas abren la puerta directamente al salón, sin pausa, sin transición. Esto tiene consecuencias psicológicas que raramente se mencionan. Sin umbral, la calle entra en casa. Sin transición, el cuerpo no tiene tiempo de cambiar de registro.
